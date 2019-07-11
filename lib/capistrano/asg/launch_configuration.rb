@@ -25,7 +25,7 @@ module Capistrano
             launch_configuration_name: name,
             image_id: ami.aws_counterpart.id,
             instance_type: instance_size,
-            security_groups: ec2_instance.security_groups.map(&:group_id),
+            security_groups: region_config.fetch(:aws_launch_configuration_security_groups, ec2_instance.security_groups.map(&:group_id)),
             associate_public_ip_address: region_config.fetch(:aws_launch_configuration_associate_public_ip, true),
             instance_monitoring: {
               enabled: fetch(:aws_launch_configuration_detailed_instance_monitoring, true)
